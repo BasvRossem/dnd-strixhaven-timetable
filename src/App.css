@@ -1,0 +1,57 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  height: 100vh;
+  width: 100%;
+  color: black;
+}
+
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.App {
+  box-shadow: 0px 3px 10px rgba(133, 133, 133, 0.221);
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.options {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.options > h2 {
+  margin-top: 0;
+}
+
+.appointment {
+  height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  box-sizing: border-box;
+  display: block;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;  
+}
+
+.appointment-title {
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.appointment-time {
+  margin-top: 0px;
+}
+
+.day-header > h2 {
+  margin: 10px;
+  color: rgb(109, 109, 109);
+}
