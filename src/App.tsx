@@ -4,21 +4,24 @@ import {
   Scheduler,
   WeekView as WeekViewStyle,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { Checkbox, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { DateTime } from "luxon";
 import { useState } from 'react';
 import './App.css';
-import { Course, characters, courses } from './data/data';
+import { Course, characters, courses, oldCharacters } from './data/data';
 import { PossibleLanguages, languages } from './data/languageStrings';
 
 const currentDate = '2023-01-01';
+let globalIncludeOld = true;
 
 function AppointmentContent(props: any) {
   const { data } = props;
   const startDate = new Date(data.startDate).getHours() < 10 ? `0${new Date(data.startDate).getHours()}` : new Date(data.startDate).getHours();
   const endDate = new Date(data.endDate).getHours() < 10 ? `0${new Date(data.endDate).getHours()}` : new Date(data.endDate).getHours();
-  const students = Course.byName(data.title)?.characters.sort().join(", ") ?? "";
+  const students = Course.byName(data.title)?.characters
+    .filter(name => globalIncludeOld ? true : !oldCharacters.includes(name))
+    .sort().join(", ") ?? "";
   return (
     <div className='appointment'>
       <p className='appointment-title'>{data.title}</p>
@@ -31,12 +34,23 @@ function AppointmentContent(props: any) {
 function App() {
   const [language, setLanguage] = useState<PossibleLanguages>("en");
   const [name, setName] = useState("");
+  const [includeOld, setIncludeOld] = useState(globalIncludeOld);
+
   const handleLanguageChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value as PossibleLanguages);
   }
 
   const handleNameChange = (event: SelectChangeEvent) => {
     setName(event.target.value);
+  }
+
+  const handleIncludeOldChange = (_: SelectChangeEvent, checked: boolean) => {
+    setIncludeOld(checked);
+    globalIncludeOld = checked;
+    console.log(name, oldCharacters, characters)
+    if (!checked && oldCharacters.includes(name)) {
+      setName("");
+    }
   }
 
   function MyDayScaleCell(props: any) {
@@ -50,7 +64,9 @@ function App() {
     .filter(course => name === "" ? true : course.characters.includes(name))
     .map(course => courseToScheduler(course));
 
-  const nameOptions = characters.map(character => (<MenuItem key={character} value={character}>{character}</MenuItem>));
+  const nameOptions = characters
+    .filter(name => includeOld ? true : !oldCharacters.includes(name))
+    .map(character => (<MenuItem key={character} value={character}>{character}</MenuItem>));
 
   return (
     <div className="App">
@@ -71,6 +87,17 @@ function App() {
           <MenuItem value="">{languages[language].selectName}</MenuItem>
           {nameOptions}
         </Select>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Checkbox
+            defaultChecked
+            onChange={handleIncludeOldChange}
+          />
+          <InputLabel>
+            {languages[language].includeOldCharacters}
+          </InputLabel>
+
+        </div>
+
       </Paper>
       <Paper
         sx={{ minWidth: "1100px" }}

@@ -1,9 +1,9 @@
 import { PossibleLanguages } from "./languageStrings";
-import { getGlobalLanguage } from "./utils";
 
 const schools = ["Witherbloom", "Prismari", "Lorehold", "Quandrix", "Silverquill"]
 export const characters = ["Branemin", "Sinnek", "Elanys", "Farreth", "Pri'n ter"]
- 
+export const oldCharacters = ["Pri'n ter"]
+
 const courseNames = [
   { en: "Arcano-botany for Beginners", nl: "Geheimzinnige Plantkunde voor Beginners" },
   { en: "Magic Physiologies", nl: "Betoverende Fysiologieën", },
@@ -16,7 +16,7 @@ const courseNames = [
 
 export class Course {
   private selectedLanguage: PossibleLanguages = "en";
-  
+
   constructor(private _name: { en: string, nl: string }, public school: string, public day: number, public time: number, public characters: string[]) {
   }
 
@@ -36,10 +36,10 @@ export class Course {
 
 export const courses = [
   new Course(courseNames[0], schools[0], 0, 9, ["Branemin", "Sinnek", "Elanys"]),
-  new Course(courseNames[1], "",         1, 9, characters),
+  new Course(courseNames[1], "", 1, 9, characters),
   new Course(courseNames[2], schools[1], 2, 13, ["Sinnek", "Farreth"]),
   new Course(courseNames[3], schools[2], 3, 9, ["Sinnek", "Branemin", "Pri'n ter", "Elanys"]),
   new Course(courseNames[4], schools[3], 3, 13, ["Sinnek", "Pri'n ter"]),
   new Course(courseNames[5], schools[4], 4, 9, ["Sinnek", "Farreth", "Pri'n ter"]),
-  new Course(courseNames[6], "",         4, 13, ["Prin'n ter", "Farreth", "Elanys", "Sinnek"]),
+  new Course(courseNames[6], "", 4, 13, ["Prin'n ter", "Farreth", "Elanys", "Sinnek"]),
 ]
