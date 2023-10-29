@@ -41,5 +41,5 @@ export const courses = [
   new Course(courseNames[3], schools[2], 3, 9, ["Sinnek", "Branemin", "Pri'n ter", "Elanys"]),
   new Course(courseNames[4], schools[3], 3, 13, ["Sinnek", "Pri'n ter"]),
   new Course(courseNames[5], schools[4], 4, 9, ["Sinnek", "Farreth", "Pri'n ter"]),
-  new Course(courseNames[6], "", 4, 13, ["Prin'n ter", "Farreth", "Elanys", "Sinnek"]),
+  new Course(courseNames[6], "", 4, 13, ["Pri'n ter", "Farreth", "Elanys", "Sinnek"]),
 ]
